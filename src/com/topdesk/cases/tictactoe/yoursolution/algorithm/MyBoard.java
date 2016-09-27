@@ -20,6 +20,19 @@ public class MyBoard {
     private int[] tripletSums = new int[8];
 
     public MyBoard() {
+    }
+
+    public void setPositions(int givenPosition, int myCellState) {
+
+        positions[givenPosition] = myCellState;
+        System.out.println(givenPosition + "***** " + myCellState);
+        System.out.println(".................................................................................");
+        System.out.println(positions[givenPosition]);
+        System.out.println("******************************************************************************-*--");
+
+    }
+
+    public void printBoard() {
         System.out.println(".......................");
 
         System.out.println("constracting myBoard");
@@ -32,14 +45,6 @@ public class MyBoard {
             }
         }
         System.out.println(".......................");
-
-        sumTriplets();
-    }
-
-    public void setPositions(int givenPosition, int myCellState) {
-
-        positions[givenPosition] = myCellState;
-
     }
 
     boolean firstMove() {
@@ -218,14 +223,17 @@ public class MyBoard {
         return x;
     }
 
-    private void sumTriplets() {
+    public void sumTriplets() {
 
         System.out.println("sumTriplets called");
 
         for (int i = 0; i < 8; i++) {
+            tripletSums[i] = 0;
             for (int j = 0; j < 3; j++) {
-
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                System.out.println("tripletSums[" + i + "]" + tripletSums[i]);
                 tripletSums[i] += getPositions(tripletPositions[i][j]);
+                System.out.println("tripletSums[" + i + "]" + tripletSums[i]);
 
             }
             System.out.println("tripletSum i=" + i + " - " + tripletSums[i]);

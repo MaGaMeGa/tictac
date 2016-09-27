@@ -71,6 +71,7 @@ public class YourConsultant implements Consultant {
                 break;
             }
         }
+        myBoard.sumTriplets();
 
         return myBoard;
 

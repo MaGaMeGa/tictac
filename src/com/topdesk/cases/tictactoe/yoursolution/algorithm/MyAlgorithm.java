@@ -11,6 +11,9 @@ public class MyAlgorithm {
         System.out.println("algorithm suggest called :");
         System.out.println(".......................");
         System.out.println(".......................");
+        board.printBoard();
+
+        board.sumTriplets();
 
         Player player = board.whoIsNext();
         MyPosition result = null;
