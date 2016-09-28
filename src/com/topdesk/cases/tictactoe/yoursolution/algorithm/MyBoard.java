@@ -24,29 +24,7 @@ public class MyBoard {
     public void setPositions(int givenPosition, int myCellState) {
 
         positions[givenPosition] = myCellState;
-        /*
-         * System.out.println(givenPosition + "***** " + myCellState);
-         * System.out.println(
-         * "................................................................................."
-         * ); System.out.println(positions[givenPosition]); System.out.println(
-         * "******************************************************************************-*--"
-         * );
-         */
-    }
 
-    public void printBoard() {
-        System.out.println(".......................");
-
-        System.out.println("constracting myBoard");
-
-        for (int i = 0; i < 9; i++) {
-
-            System.out.print(" | " + getPositions(i) + " | ");
-            if ((i + 1) % 3 == 0) {
-                System.out.println("\n");
-            }
-        }
-        System.out.println(".......................");
     }
 
     boolean firstMove() {
@@ -76,8 +54,8 @@ public class MyBoard {
 
     boolean hasWinner() {
         boolean winer = false;
-        int i = 0;
 
+        int i = 0;
         while (i < 8 && !winer) {
             if (getTripletSums(i) == 30) {
                 winer = true;

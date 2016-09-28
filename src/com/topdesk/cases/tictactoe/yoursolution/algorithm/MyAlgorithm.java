@@ -6,12 +6,6 @@ import java.util.List;
 public class MyAlgorithm {
 
     public MyPosition suggest(MyBoard board) {
-        System.out.println(".......................");
-        System.out.println(".......................");
-        System.out.println("algorithm suggest called :");
-        System.out.println(".......................");
-        System.out.println(".......................");
-        board.printBoard();
 
         board.sumTriplets();
 
@@ -262,12 +256,12 @@ public class MyAlgorithm {
          */
 
         for (int i = 0; i < opponentsForkableTriplets.size() - 1 && position == -1; i++) {
-            List<int[]> intersections;
+            List<int[]> intersections = new ArrayList<int[]>();
             intersections = board.findTripletsIntersections(opponentsForkableTriplets.get(i),
                     opponentsForkableTriplets.get(i + 1));
             for (int j = 0; j < intersections.size(); j++) {
                 for (int k = 0; k < intersections.get(j).length; k++) {
-                    if (intersections.get(j)[k] == 0) {
+                    if (board.getPositions(intersections.get(j)[k]) == 0) {
                         opponentsForkableIntersections.add(intersections.get(j)[k]);
                     }
                 }
@@ -360,18 +354,17 @@ public class MyAlgorithm {
 
         for (int i = 0; i < forkableTriplets.size() - 1 && !fork; i++) {
             System.out.println("in getfork : 2nd for loop 1st");
-            List<int[]> intersections;
+            List<int[]> intersections = new ArrayList<int[]>();
             intersections = board.findTripletsIntersections(forkableTriplets.get(i), forkableTriplets.get(i + 1));
             for (int j = 0; j < intersections.size(); j++) {
                 for (int k = 0; k < intersections.get(j).length; k++) {
-                    System.out.println("in getfork : 2nd for loop 3rd");
-                    System.out.println(
-                            "-----------------------------intersections.get(j)[k] =" + intersections.get(j)[k]);
-                    if (intersections.get(j)[k] == 0) {
-                        System.out.println("intersections.get(j)[k] =" + intersections.get(j)[k]);
+                    if (board.getPositions(intersections.get(j)[k]) == 0) {
+                        // System.out.println("intersections.get(j)[k] =" +
+                        // intersections.get(j)[k]);
                         forkableIntersections.add(intersections.get(j)[k]);
                         fork = true;
-                        System.out.println("forkableIntersections.get(0) =" + forkableIntersections.get(0));
+                        // System.out.println("forkableIntersections.get(0) =" +
+                        // forkableIntersections.get(0));
                     }
                 }
             }
