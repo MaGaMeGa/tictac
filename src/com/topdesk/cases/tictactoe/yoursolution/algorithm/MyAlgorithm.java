@@ -345,8 +345,10 @@ public class MyAlgorithm {
             System.out.println("in getfork , first loop, i=" + i);
             if (board.getTripletSums(i) + playerIndicator == playerIndicator * 2) {
                 forkableTriplets.add(i);
-                System.out.println("in getfork: board.sumTriplets()[i]=" + board.getTripletSums(i));
-
+                System.out.println("in getfork: board.sumTriplets()[i] + playerIndicator = " + board.getTripletSums(i));
+                for (int j = 0; j < forkableTriplets.size(); j++) {
+                    System.out.println("forkline:" + fork);
+                }
             }
 
         }
@@ -356,7 +358,7 @@ public class MyAlgorithm {
          * add to forkableIntersections
          */
 
-        for (int i = 0; i < forkableTriplets.size() - 1 && position == -1; i++) {
+        for (int i = 0; i < forkableTriplets.size() - 1 && !fork; i++) {
             System.out.println("in getfork : 2nd for loop 1st");
             List<int[]> intersections;
             intersections = board.findTripletsIntersections(forkableTriplets.get(i), forkableTriplets.get(i + 1));
@@ -439,6 +441,7 @@ public class MyAlgorithm {
         System.out.println("---------------------------");
 
         int position = -1;
+
         MyPosition result = null;
 
         int playerIndicator = 0;
@@ -463,8 +466,10 @@ public class MyAlgorithm {
                 /*
                  * find empty position in the current triplet
                  */
+                System.out.println("иииииииииииииииииииииииииииииииииииииииииииииииииииииииии");
+                System.out.println("board.getTripletSums(" + i + ") = " + board.getTripletSums(i));
 
-                position = board.getTripletPositions(i)[board.findEmptyPositionInTriplet(i)];
+                position = board.findEmptyPositionsInTriplet(i);
 
             }
 
@@ -474,7 +479,7 @@ public class MyAlgorithm {
             result = new MyPosition(position);
         }
         System.out.println("---------------------------");
-        System.out.println("getEmptzySide : " + position);
+        System.out.println("geWinner : " + position);
         System.out.println("---------------------------");
         return result;
     }

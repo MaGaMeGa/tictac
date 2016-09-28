@@ -1,6 +1,5 @@
 package com.topdesk.cases.tictactoe.yoursolution.algorithm;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,11 +24,14 @@ public class MyBoard {
     public void setPositions(int givenPosition, int myCellState) {
 
         positions[givenPosition] = myCellState;
-        System.out.println(givenPosition + "***** " + myCellState);
-        System.out.println(".................................................................................");
-        System.out.println(positions[givenPosition]);
-        System.out.println("******************************************************************************-*--");
-
+        /*
+         * System.out.println(givenPosition + "***** " + myCellState);
+         * System.out.println(
+         * "................................................................................."
+         * ); System.out.println(positions[givenPosition]); System.out.println(
+         * "******************************************************************************-*--"
+         * );
+         */
     }
 
     public void printBoard() {
@@ -122,8 +124,12 @@ public class MyBoard {
     int findEmptyPositionInTriplet(int tripletNum) {
 
         int emptyPosition = -1;
-        for (int i = 0; i < 3; i++) {
-            if (triplets[tripletNum][i] == 0) {
+        for (int i = 0; (i < 3) && (emptyPosition == -1); i++) {
+
+            if (getTriplet(tripletNum)[i] == 0) {
+                System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+                System.out.println("getTriplet(tripletNum)[i] = " + getTriplet(tripletNum)[i]);
+
                 emptyPosition = i;
             }
         }
@@ -132,12 +138,15 @@ public class MyBoard {
 
     }
 
-    List<Integer> findEmptyPositionsInTriplet(int tripletNum) {
+    int findEmptyPositionsInTriplet(int tripletNum) {
 
-        List<Integer> emptyPositionsInTriplet = new ArrayList<Integer>();
+        int emptyPositionsInTriplet = -1;
         for (int i = 0; i < 3; i++) {
-            if (getTripletPosition(tripletNum, i) == 0) {
-                emptyPositionsInTriplet.add(i);
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx");
+            System.out
+                    .println("getTripletposition(" + tripletNum + "," + i + ") =" + getTripletPosition(tripletNum, i));
+            if (positions[getTripletPosition(tripletNum, i)] == 0) {
+                emptyPositionsInTriplet = getTripletPosition(tripletNum, i);
             }
         }
 
@@ -230,13 +239,11 @@ public class MyBoard {
         for (int i = 0; i < 8; i++) {
             tripletSums[i] = 0;
             for (int j = 0; j < 3; j++) {
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                System.out.println("tripletSums[" + i + "]" + tripletSums[i]);
+
                 tripletSums[i] += getPositions(tripletPositions[i][j]);
-                System.out.println("tripletSums[" + i + "]" + tripletSums[i]);
 
             }
-            System.out.println("tripletSum i=" + i + " - " + tripletSums[i]);
+
         }
 
     }
