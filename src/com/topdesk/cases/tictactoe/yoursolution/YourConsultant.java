@@ -152,29 +152,7 @@ public class YourConsultant implements Consultant {
      */
     private MyBoard convert(GameBoard board) {
 
-        int positionXIndicator = 10;
-        int positionOIndicator = 1;
-        int positionEmptyIndicator = 0;
-
-        MyBoard myBoard = new MyBoard();
-        List<CellLocation> listOfPositions = Arrays.asList(CellLocation.values());
-
-        for (int i = 0; i < listOfPositions.size(); i++) {
-
-            switch (board.getCellState(listOfPositions.get(i))) {
-
-            case OCCUPIED_BY_X:
-                myBoard.setPositions(i, positionXIndicator);
-                break;
-            case OCCUPIED_BY_O:
-                myBoard.setPositions(i, positionOIndicator);
-                break;
-            case EMPTY:
-                myBoard.setPositions(i, positionEmptyIndicator);
-                break;
-            }
-        }
-        myBoard.sumTriplets();
+        MyBoard myBoard = new MyBoard(board);
 
         return myBoard;
 

@@ -3,6 +3,9 @@ package com.topdesk.cases.tictactoe.yoursolution.algorithm;
 import java.util.Arrays;
 import java.util.List;
 
+import com.topdesk.cases.tictactoe.CellLocation;
+import com.topdesk.cases.tictactoe.GameBoard;
+
 public class MyBoard {
 
     private int[] positions = new int[9];
@@ -18,11 +21,14 @@ public class MyBoard {
 
     private int[] tripletSums = new int[8];
 
-    public MyBoard() {
+    public MyBoard(GameBoard board) {
+
+        fillPositions(board);
+        sumTriplets();
+
     }
 
     public void setPositions(int givenPosition, int myCellState) {
-
         positions[givenPosition] = myCellState;
 
     }
@@ -52,23 +58,6 @@ public class MyBoard {
 
     }
 
-    boolean hasWinner() {
-        boolean winer = false;
-
-        int i = 0;
-        while (i < 8 && !winer) {
-            if (getTripletSums(i) == 30) {
-                winer = true;
-            }
-            if (getTripletSums(i) == 3) {
-                winer = true;
-            }
-            i++;
-        }
-
-        return winer;
-    }
-
     int getTripletSums(int tripletNum) {
         int sum = tripletSums[tripletNum];
 
@@ -87,7 +76,7 @@ public class MyBoard {
         return position;
     }
 
-    int[] getTripletPositions(int tripletNum) {
+    int[] getArrayOfPositionsInTriplet(int tripletNum) {
         int[] position = tripletPositions[tripletNum];
 
         return position;
@@ -99,49 +88,29 @@ public class MyBoard {
         return triplet;
     }
 
-    int findEmptyPositionInTriplet(int tripletNum) {
-
-        int emptyPosition = -1;
-        for (int i = 0; (i < 3) && (emptyPosition == -1); i++) {
-
-            if (getTriplet(tripletNum)[i] == 0) {
-                System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-                System.out.println("getTriplet(tripletNum)[i] = " + getTriplet(tripletNum)[i]);
-
-                emptyPosition = i;
-            }
-        }
-
-        return emptyPosition;
-
-    }
-
     int findEmptyPositionsInTriplet(int tripletNum) {
-
         int emptyPositionsInTriplet = -1;
+
         for (int i = 0; i < 3; i++) {
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx");
-            System.out
-                    .println("getTripletposition(" + tripletNum + "," + i + ") =" + getTripletPosition(tripletNum, i));
             if (positions[getTripletPosition(tripletNum, i)] == 0) {
                 emptyPositionsInTriplet = getTripletPosition(tripletNum, i);
             }
         }
 
         return emptyPositionsInTriplet;
-
     }
 
     List<int[]> findTripletsIntersections(int firstTripletsNum, int secundTripletsNum) {
-        int[] a = getTripletPositions(firstTripletsNum);
-        int[] b = getTripletPositions(secundTripletsNum);
-        int[] intersec = Arrays.stream(a).filter(x -> Arrays.stream(b).anyMatch(y -> y == x)).toArray();
-        System.out.println("int _eres 01 ------------" + intersec[0]);
+        int[] positionsInFirstTriplet = getArrayOfPositionsInTriplet(firstTripletsNum);
+        int[] positionsInSecondTriplet = getArrayOfPositionsInTriplet(secundTripletsNum);
+
+        int[] intersec = Arrays.stream(positionsInFirstTriplet)
+                .filter(x -> Arrays.stream(positionsInSecondTriplet).anyMatch(y -> y == x)).toArray();
+
         return Arrays.asList(intersec);
     }
 
     Player whoIsNext() {
-        System.out.println("whoIsNext called");
         int countX = countX();
         int countO = countO();
 
@@ -151,7 +120,7 @@ public class MyBoard {
         } else if (countX > countO) {
             result = Player.O;
         }
-        System.out.println("whoIsNext result: " + result.toString());
+
         return result;
     }
 
@@ -168,7 +137,6 @@ public class MyBoard {
         }
 
         return winer;
-
     }
 
     private int countX() {
@@ -178,7 +146,6 @@ public class MyBoard {
             if (positions[i] == 10) {
                 x++;
             }
-
         }
 
         return x;
@@ -191,7 +158,6 @@ public class MyBoard {
             if (positions[i] == 1) {
                 x++;
             }
-
         }
 
         return x;
@@ -204,26 +170,45 @@ public class MyBoard {
             if (positions[i] == 0) {
                 x++;
             }
-
         }
 
         return x;
     }
 
-    public void sumTriplets() {
+    private void fillPositions(GameBoard board) {
 
-        System.out.println("sumTriplets called");
+        int positionXIndicator = 10;
+        int positionOIndicator = 1;
+        int positionEmptyIndicator = 0;
+
+        List<CellLocation> listOfPositions = Arrays.asList(CellLocation.values());
+
+        for (int i = 0; i < listOfPositions.size(); i++) {
+
+            switch (board.getCellState(listOfPositions.get(i))) {
+
+            case OCCUPIED_BY_X:
+                setPositions(i, positionXIndicator);
+                break;
+            case OCCUPIED_BY_O:
+                setPositions(i, positionOIndicator);
+                break;
+            case EMPTY:
+                setPositions(i, positionEmptyIndicator);
+                break;
+            }
+        }
+    }
+
+    private void sumTriplets() {
 
         for (int i = 0; i < 8; i++) {
             tripletSums[i] = 0;
             for (int j = 0; j < 3; j++) {
-
                 tripletSums[i] += getPositions(tripletPositions[i][j]);
 
             }
-
         }
-
     }
 
 }

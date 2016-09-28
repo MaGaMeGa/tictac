@@ -7,8 +7,6 @@ public class MyAlgorithm {
 
     public MyPosition suggest(MyBoard board) {
 
-        board.sumTriplets();
-
         Player player = board.whoIsNext();
         MyPosition result = null;
 
@@ -385,12 +383,8 @@ public class MyAlgorithm {
     }
 
     private MyPosition getBlockWinner(MyBoard board, Player player) {
-        System.out.println("---------------------------");
-        System.out.println("getBlockWiner : called");
-        System.out.println("---------------------------");
         int position = -1;
         MyPosition result = null;
-
         int opponentIndicator = 0;
 
         /*
@@ -412,31 +406,22 @@ public class MyAlgorithm {
                 /*
                  * find empty position in the current triplet
                  */
-                position = board.getTripletPositions(i)[board.findEmptyPositionInTriplet(i)];
 
+                position = board.findEmptyPositionsInTriplet(i);
             }
-
         }
 
         if (position != -1) {
             result = new MyPosition(position);
         }
 
-        System.out.println("---------------------------");
-        System.out.println("getBlockWiner : " + position);
-        System.out.println("---------------------------");
         return result;
     }
 
     private MyPosition getWinner(MyBoard board, Player player) {
-        System.out.println("---------------------------");
-        System.out.println("getWiner : called");
-        System.out.println("---------------------------");
-
         int position = -1;
 
         MyPosition result = null;
-
         int playerIndicator = 0;
 
         /*
@@ -451,29 +436,20 @@ public class MyAlgorithm {
         /*
          * Checking all 8 possible triplets for possible wining positions until
          * the first found
-         * 
-         * 
          */
         for (int i = 0; (i < 8) && (position == -1); i++) {
             if (board.getTripletSums(i) == playerIndicator * 2) {
                 /*
                  * find empty position in the current triplet
                  */
-                System.out.println("иииииииииииииииииииииииииииииииииииииииииииииииииииииииии");
-                System.out.println("board.getTripletSums(" + i + ") = " + board.getTripletSums(i));
-
                 position = board.findEmptyPositionsInTriplet(i);
-
             }
-
         }
 
         if (position != -1) {
             result = new MyPosition(position);
         }
-        System.out.println("---------------------------");
-        System.out.println("geWinner : " + position);
-        System.out.println("---------------------------");
+
         return result;
     }
 }
