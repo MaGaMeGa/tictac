@@ -210,17 +210,12 @@ public class MyAlgorithm {
     }
 
     private MyPosition getBlockFork(MyBoard board, Player player) {
-        System.out.println("---------------------------");
-        System.out.println("getBlockFork : called");
-        System.out.println("---------------------------");
         int position = -1;
+        int playerIndicator = 0;
+        int opponentIndicator = 0;
         MyPosition result = null;
         List<Integer> opponentsForkableTriplets = new ArrayList<Integer>();
         List<Integer> opponentsForkableIntersections = new ArrayList<Integer>();
-
-        int playerIndicator = 0;
-
-        int opponentIndicator = 0;
 
         /*
          * setting playerIndicator & opponentPlayerindicators
@@ -235,20 +230,20 @@ public class MyAlgorithm {
         }
 
         /*
+         * setting opponentsForkableTriplets
+         * 
          * Checking triplets for opponent possible forkable positions and add
          * all to opponentForkabletriplets
-         * 
-         * 
          */
         for (int i = 0; i < 8; i++) {
             if (board.getTripletSums(i) + opponentIndicator == opponentIndicator * 2) {
                 opponentsForkableTriplets.add(i);
-
             }
-
         }
 
         /*
+         * setting opponentsForkableIntersections
+         * 
          * Check opponent's forkable triplets for intersection positions and if
          * position is empty add to opponetForkableIntersections list
          */
@@ -263,13 +258,15 @@ public class MyAlgorithm {
                         opponentsForkableIntersections.add(intersections.get(j)[k]);
                     }
                 }
-
             }
         }
 
         /*
-         * find possible position to force the opponent to blockWin , and add
-         * all to the forceOpponentBlockWinPositions list
+         * setting position
+         * 
+         * find Triplets with a position to force the opponent to blockWin , and
+         * add if the other empty position in this Triplet is not in the
+         * forceOpponentBlockWinPositions list, make the position equal to it
          * 
          */
         for (int i = 0; i < 8 && position == -1; i++) {
